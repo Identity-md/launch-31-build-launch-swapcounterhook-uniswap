@@ -1,0 +1,31 @@
+[profile.default]
+src = "src"
+test = "test"
+out = "out"
+libs = ["lib"]
+
+# Pinned, not floating: the Uniswap v4 sources in lib/ are written for 0.8.26, and a hook's
+# creation code is mined for a CREATE2 salt, so the compiler that produced it has to be
+# reproducible. `bytecode_hash = "none"` drops the metadata hash for the same reason — it makes
+# the bytecode independent of the absolute path the repository happens to sit at.
+solc = "0.8.26"
+evm_version = "cancun"
+bytecode_hash = "none"
+
+optimizer = true
+optimizer_runs = 800
+
+# Both spellings of the Uniswap prefixes resolve to the same vendored tree: the v4 libraries
+# import each other as `@uniswap/v4-core/...`, while hooks and tests conventionally write
+# `v4-core/...`.
+remappings = [
+    "forge-std/=lib/forge-std/src/",
+    "solmate/=lib/solmate/",
+    "permit2/=lib/permit2/",
+    "@openzeppelin/=lib/openzeppelin-contracts/",
+    "openzeppelin-contracts/=lib/openzeppelin-contracts/",
+    "v4-core/=lib/v4-core/",
+    "@uniswap/v4-core/=lib/v4-core/",
+    "v4-periphery/=lib/v4-periphery/",
+    "@uniswap/v4-periphery/=lib/v4-periphery/",
+]

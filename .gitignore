@@ -1,0 +1,6 @@
+out/
+cache/
+broadcast/
+
+# Editor settings that shipped inside vendored dependencies — not ours, not needed to build.
+lib/**/.vscode/
